@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Autobiography</title>
+
+    <style>
+        /* CSS VARIABLES (Easy color management) */
+        :root {
+            --primary-color: #3498db;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333;
+        }
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --primary-color: #e74c3c;
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-color: #f4f4f4;
+        }
+
+        /* ELEMENT SELECTOR: Body Layout */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* CLASS SELECTOR: The Main Card */
+        .card {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Header Area */
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* ID SELECTOR: Navigation Menu */
+        #nav-menu {
+            display: flex;
+            background: #ddd;
+        }
+
+        /* Interactive Buttons */
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background: rgba(0,0,0,0.05);
+            cursor: pointer;
+            font-weight: bold;
+            color: #555;
+            transition: 0.3s;
+        }
+
+        /* Hover Effect: Changes color when mouse is over */
+        .tab-btn:hover {
+            background: rgba(0,0,0,0.1);
+        }
+
+        /* The "Active" state for the button */
+        .tab-btn.active {
+            background: var(--card-bg); /* Matches white background */
+            color: var(--primary-color);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        /* CONTENT SECTIONS */
+        .content-section {
+            padding: 30px;
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s;
+        }
+
+        /* Only show the section that has the 'active' class */
+        .content-section.active {
+            display: block;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Utility Class for Hidden Text */
+        .hidden-text {
+            display: none;
+            background: rgba(0,0,0,0.05);
+            padding: 10px;
+            border-left: 3px solid var(--primary-color);
+            margin-top: 10px;
+        }
+
+        /* Mode Toggle Switch Styling */
+        .mode-switch {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="mode-switch" onclick="toggleDarkMode()">🌙 Dark Mode</div>
+
+        <div class="card-header">
+            <h1>Ralfh Rey D. Cano</h1>
+            <p>University of Mindanao | Student</p>
+        </div>
+
+        <div id="nav-menu">
+            <button class="tab-btn active" onclick="openTab('intro', this)">Intro</button>
+            <button class="tab-btn" onclick="openTab('early', this)">Early Life</button>
+            <button class="tab-btn" onclick="openTab('path', this)">The Path</button>
+            <button class="tab-btn" onclick="openTab('now', this)">Now</button>
+        </div>
+
+        <div id="intro" class="content-section active">
+            <h2>Who Am I?</h2>
+            <p>
+                Welcome to my interactive story. Born in <strong>Tagum City</strong> in 2005, 
+                I believe that life is a balance of hope and hardship.
+            </p>
+            <button style="background: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="alert('Thank you for visiting my profile!')">
+                Say Hello!
+            </button>
+        </div>
+
+        <div id="early" class="content-section">
+            <h2>The Early Years</h2>
+            <p>I was raised in <strong>Sto. Tomas, Davao Del Norte</strong>.</p>
+            <ul>
+                <li><strong>Birth Year:</strong> 2005</li>
+                <li><strong>Key Memory:</strong> The day my baby brother was born changed my perspective on responsibility.</li>
+            </ul>
+        </div>
+
+        <div id="path" class="content-section">
+            <h2>Forging a Path</h2>
+            <p>
+                Moving to Bansalan, Davao Del Sur was a massive culture shock, but it led me to my love for Computers.
+            </p>
+            <hr>
+            <p><strong>The Challenge:</strong></p>
+            <p>
+                My teenage years faced a significant hurdle regarding my family structure.
+                <a href="#" onclick="toggleText()" style="color: var(--primary-color);">[Click to Read More]</a>
+            </p>
+            
+            <div id="more-details" class="hidden-text">
+                The departure of my father due to family issues was difficult. However, overcoming it taught me that 
+                acceptance is the truest form of forgiveness. It made me resilient.
+            </div>
+        </div>
+
+        <div id="now" class="content-section">
+            <h2>Where I Am Now</h2>
+            <p>
+                I am currently studying at the <strong>University of Mindanao</strong>.
+            </p>
+            <p>
+                I am focused on being my authentic self and thriving beyond what I thought was possible.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // FUNCTION 1: Handles switching tabs
+        function openTab(tabName, btnElement) {
+            // 1. Hide all elements with class="content-section"
+            var contents = document.getElementsByClassName("content-section");
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
+            }
+
+            // 2. Remove "active" class from all buttons
+            var buttons = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove("active");
+            }
+
+            // 3. Show the specific tab we clicked (by ID)
+            document.getElementById(tabName).classList.add("active");
+
+            // 4. Highlight the button we clicked
+            btnElement.classList.add("active");
+        }
+
+        // FUNCTION 2: Dark Mode Toggle
+        function toggleDarkMode() {
+            var body = document.body;
+            // Checks if we are currently in dark mode
+            if (body.getAttribute("data-theme") === "dark") {
+                body.removeAttribute("data-theme"); // Switch to light
+            } else {
+                body.setAttribute("data-theme", "dark"); // Switch to dark
+            }
+        }
+
+        // FUNCTION 3: Show/Hide Text
+        function toggleText() {
+            var textDiv = document.getElementById("more-details");
+            if (textDiv.style.display === "block") {
+                textDiv.style.display = "none";
+            } else {
+                textDiv.style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+</html>
